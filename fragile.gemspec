@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Fragile::VERSION
   s.authors     = ["tnakamura"]
   s.email       = ["griefworker@gmail.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.homepage    = "https://github.com/tnakamura/fragile"
+  s.summary     = %q{Ruby Pipeline Framework}
+  s.description = %q{Ruby Pipeline Framework}
 
   s.rubyforge_project = "fragile"
 

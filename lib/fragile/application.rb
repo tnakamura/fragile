@@ -31,22 +31,26 @@ module Fragile
     end
 
     def handle_options
-      OptionParser.new do |opts|
-        opts.version = Fragile::VERSION
-        opts.banner = "fragile [-f CONFFILE] {options} targets..."
-        opts.separator ""
-        opts.separator "Options are ..."
-        opts.on_tail("-h", "--help", "-H", "Display this help message.") do
-          puts opts
-          exit
-        end
+      opts = OptionParser.new
+      opts.version = Fragile::VERSION
+      opts.banner = "fragile [-f RECIPE_FILE] {options} targets..."
+      opts.separator ""
+      opts.separator "Options are ..."
+      opts.on_tail("-h", "--help", "-H", "Display this help message.") do
+        puts opts
+        exit
+      end
+      opts.on("-f", "--recipefile=RECIPE_FILE", "Recipe file path") { |v|
+        @spcfile = v
+        @plugin_dir ||= File.join(File.dirname(@spcfile), "plugins")
+      }
+      opts.on("-p", "--plugindir=plugin_dir", "Plugin directory") { |v| @plugin_dir = v }
+      opts.parse!(ARGV)
 
-        opts.on("-f", "--fragfile=spcfile", "Config file path") { |v|
-          @spcfile = v
-          @plugin_dir ||= File.join(File.dirname(@spcfile), "plugins")
-        }
-        opts.on("-p", "--plugindir=plugin_dir", "Plugin directory") { |v| @plugin_dir = v }
-      end.parse!(ARGV)
+      unless 0 < ARGV.count
+        puts opts
+        exit
+      end
     end
   end
 

@@ -1,4 +1,10 @@
 # coding: utf-8
+# Name::      Fragile
+# Author::    tnakamura <http://d.hatena.ne.jp/griefworker>
+# Created::   Jun 15, 2012
+# Updated::   Jun 15, 2012
+# Copyright:: tnakamura Copyright (c) 2012
+# License::   Licensed under the MIT LICENSE.
 require "optparse"
 require "fragile/version"
 require "fragile/pipeline_manager"

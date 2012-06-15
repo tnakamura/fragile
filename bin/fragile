@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby -I ../lib -I lib
+
+begin
+  require "rubygems"
+  gem "fragile"
+rescue LoadError
+end
+
+require "fragile"
+
+Fragile.application.run
+

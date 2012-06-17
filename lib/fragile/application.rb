@@ -6,6 +6,7 @@
 # Copyright:: tnakamura Copyright (c) 2012
 # License::   Licensed under the MIT LICENSE.
 require "optparse"
+require "logger"
 require "fragile/version"
 require "fragile/pipeline_manager"
 require "fragile/plugin_manager"
@@ -15,8 +16,12 @@ module Fragile
     include Fragile::PipelineManager
     include Fragile::PluginManager
 
+    attr_reader :logger
+
     def initialize
       @recipe_file = File.join(Dir.pwd, "Spcfile")
+      @logger = Logger.new(STDOUT)
+      @logger.level = Logger::WARN
     end
 
     def run
@@ -45,6 +50,7 @@ module Fragile
         @plugin_dir ||= File.join(File.dirname(@recipe_file), "plugins")
       }
       opts.on("-p", "--plugindir=plugin_dir", "Plugin directory") { |v| @plugin_dir = v }
+      opts.on("-V", "--verbose", "Show detail log") { |v| @logger.level = Logger::DEBUG }
       opts.parse!(ARGV)
 
       unless 0 < ARGV.count

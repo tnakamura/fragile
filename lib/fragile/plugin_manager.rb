@@ -17,13 +17,14 @@ module Fragile
 
     def load_plugins
       unless Dir.exist?(@plugin_dir)
-        puts "'#{@plugin_dir}' is not exist."
+        Fragile.application.logger.warn "'#{@plugin_dir}' is not exist."
         return
       end
 
       pattern = File.join(@plugin_dir, "*.rb")
       Dir.glob(pattern) do |path|
         load path
+        Fragile.application.logger.info "'#{path}' is loaded."
       end
     end
 

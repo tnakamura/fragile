@@ -5,3 +5,7 @@ $LOAD_PATH.unshift APP_ROOT
 $LOAD_PATH.unshift File.join(APP_ROOT)
 $LOAD_PATH.unshift File.join(APP_ROOT, 'lib')
 
+require "logger"
+require "fragile"
+Fragile.logger.level = Logger::DEBUG
+

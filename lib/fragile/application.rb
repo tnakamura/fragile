@@ -63,5 +63,9 @@ module Fragile
   def self.application
     @application ||= Application.new
   end
+
+  def self.logger
+    Fragile.application.logger
+  end
 end
 

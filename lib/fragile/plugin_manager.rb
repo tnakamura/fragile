@@ -16,15 +16,17 @@ module Fragile
     attr_accessor :plugin_dir
 
     def load_plugins
+      Fragile.logger.info "plugin_dir is '#{@plugin_dir}'."
       unless Dir.exist?(@plugin_dir)
-        Fragile.application.logger.warn "'#{@plugin_dir}' is not exist."
+        Fragile.logger.warn "'#{@plugin_dir}' is not exist."
         return
       end
 
       pattern = File.join(@plugin_dir, "*.rb")
+      Fragile.logger.info "pattern is '#{pattern}'."
       Dir.glob(pattern) do |path|
         load path
-        Fragile.application.logger.info "'#{path}' is loaded."
+        Fragile.logger.info "'#{path}' is loaded."
       end
     end
 

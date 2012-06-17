@@ -47,9 +47,11 @@ module Fragile
       end
       opts.on("-f", "--recipefile=RECIPE_FILE", "Recipe file path") { |v|
         @recipe_file = v
-        @plugin_dir ||= File.join(File.dirname(@recipe_file), "plugins")
+        @plugin_dir ||= File.join(File::expand_path(File.dirname(@recipe_file)), "plugins")
       }
-      opts.on("-p", "--plugindir=plugin_dir", "Plugin directory") { |v| @plugin_dir = v }
+      opts.on("-p", "--plugindir=plugin_dir", "Plugin directory") { |v|
+        @plugin_dir = File::expand_path(v)
+      }
       opts.on("-V", "--verbose", "Show detail log") { |v| @logger.level = Logger::DEBUG }
       opts.parse!(ARGV)
 

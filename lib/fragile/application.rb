@@ -16,18 +16,18 @@ module Fragile
     include Fragile::PluginManager
 
     def initialize
-      @spcfile = File.join(Dir.pwd, "Spcfile")
+      @recipe_file = File.join(Dir.pwd, "Spcfile")
     end
 
     def run
       handle_options
       load_plugins
-      load_spcfile
+      load_recipe_file
       run_pipeline(ARGV)
     end
 
-    def load_spcfile
-      load @spcfile
+    def load_recipe_file
+      load @recipe_file
     end
 
     def handle_options
@@ -41,8 +41,8 @@ module Fragile
         exit
       end
       opts.on("-f", "--recipefile=RECIPE_FILE", "Recipe file path") { |v|
-        @spcfile = v
-        @plugin_dir ||= File.join(File.dirname(@spcfile), "plugins")
+        @recipe_file = v
+        @plugin_dir ||= File.join(File.dirname(@recipe_file), "plugins")
       }
       opts.on("-p", "--plugindir=plugin_dir", "Plugin directory") { |v| @plugin_dir = v }
       opts.parse!(ARGV)

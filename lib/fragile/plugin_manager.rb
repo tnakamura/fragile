@@ -16,7 +16,10 @@ module Fragile
     attr_accessor :plugin_dir
 
     def load_plugins
-      return unless Dir.exist?(@plugin_dir)
+      unless Dir.exist?(@plugin_dir)
+        puts "'#{@plugin_dir}' is not exist."
+        return
+      end
 
       pattern = File.join(@plugin_dir, "*.rb")
       Dir.glob(pattern) do |path|

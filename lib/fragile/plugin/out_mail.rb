@@ -3,7 +3,7 @@ require "date"
 require "securerandom"
 require "net/smtp"
 
-module Flagile
+module Fragile
   module Plugin
     class MailOutput
       def initialize(config)

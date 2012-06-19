@@ -1,7 +1,7 @@
 # coding: utf-8
 require "rss"
 
-module Flagile
+module Fragile
   module Plugin
     class RssInput
       def initialize(config)

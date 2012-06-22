@@ -28,7 +28,7 @@ module Fragile
     end
 
     def run
-      data = nil
+      data = []
       @plugins.each do |plugin|
         retry_handler do
           data = plugin.call(data)
@@ -41,7 +41,8 @@ module Fragile
       count = 0
       begin
         block.call
-      rescue
+      rescue => ex
+        Fragile.logger.error(ex)
         if @retry_count < count
           raise PipelineError.new("retry over error.")
         end

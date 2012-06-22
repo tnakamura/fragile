@@ -32,6 +32,7 @@ module Fragile
 
     def load_recipe_file
       load @recipe_file
+      self.logger.info "#{@recipe_file} was loaded."
     end
 
     def handle_options

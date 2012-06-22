@@ -10,7 +10,9 @@ module Fragile
 
       def call(data=[])
         rss = RSS::Parser.parse(@url)
-        urls = rss.items.map{|item| item.link}
+        urls = rss.items.map do |item|
+          { :title => item.title, :link => item.link }
+        end
         data + urls
       end
     end

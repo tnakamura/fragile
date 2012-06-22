@@ -2,7 +2,7 @@
 
 module Fragile
   module Plugin
-    class ProcFilter
+    class SelectFilter
       def initialize(config)
         @proc = config[:proc]
       end

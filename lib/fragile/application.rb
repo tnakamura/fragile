@@ -26,7 +26,6 @@ module Fragile
 
     def run
       handle_options
-      load_plugins
       load_recipe_file
       run_pipeline(ARGV)
     end
@@ -36,23 +35,18 @@ module Fragile
     end
 
     def handle_options
-      opts = OptionParser.new
-      opts.version = Fragile::VERSION
-      opts.banner = "fragile [-f RECIPE_FILE] {options} targets..."
-      opts.separator ""
-      opts.separator "Options are ..."
-      opts.on_tail("-h", "--help", "-H", "Display this help message.") do
-        puts opts
-        exit
+      opts = OptionParser.new do |opts|
+        opts.version = Fragile::VERSION
+        opts.banner = "fragile [-f RECIPE_FILE] {options} targets..."
+        opts.separator ""
+        opts.separator "Options are ..."
+        opts.on_tail("-h", "--help", "-H", "Display this help message.") do
+          puts opts
+          exit
+        end
+        opts.on("-f", "--recipefile=RECIPE_FILE", "Recipe file path"){|v| @recipe_file = v}
+        opts.on("-V", "--verbose", "Show detail log"){|v| @logger.level = Logger::DEBUG}
       end
-      opts.on("-f", "--recipefile=RECIPE_FILE", "Recipe file path") { |v|
-        @recipe_file = v
-        @plugin_dir ||= File.join(File::expand_path(File.dirname(@recipe_file)), "plugins")
-      }
-      opts.on("-p", "--plugindir=plugin_dir", "Plugin directory") { |v|
-        @plugin_dir = File::expand_path(v)
-      }
-      opts.on("-V", "--verbose", "Show detail log") { |v| @logger.level = Logger::DEBUG }
       opts.parse!(ARGV)
 
       unless 0 < ARGV.count

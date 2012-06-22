@@ -9,3 +9,6 @@ require "logger"
 require "fragile"
 Fragile.logger.level = Logger::DEBUG
 
+require "minitest/spec"
+require "minitest/autorun"
+

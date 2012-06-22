@@ -1,8 +1,5 @@
 # coding: utf-8
 require_relative "test_helper"
-require "minitest/spec"
-require "minitest/autorun"
-require "fragile"
 
 describe "DSL" do
   describe "#pipeline" do

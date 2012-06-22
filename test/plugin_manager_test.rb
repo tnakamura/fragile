@@ -1,15 +1,8 @@
 # coding: utf-8
 require_relative "test_helper"
-require "minitest/spec"
-require "minitest/autorun"
-require "fragile"
 
 class TestApp
   include Fragile::PluginManager
-
-  def initialize(plugin_dir)
-    @plugin_dir = plugin_dir
-  end
 end
 
 module Fragile::Plugin
@@ -24,26 +17,10 @@ module Fragile::Plugin
 end
 
 describe "PluginManager" do
-  describe "#load_plugins" do
-    describe "プラグインディレクトリが存在するとき" do
-      before do
-        @plugin_dir = File.join(File.dirname(__FILE__), "../examples/plugins")
-        @manager = TestApp.new(@plugin_dir)
-      end
-
-      it "プラグインをロードできるべき" do
-        @manager.load_plugins
-        Fragile::Plugin.const_get("Foo")
-        pass
-      end
-    end
-  end
-
   describe "#create_plugin" do
     describe "クラスを指定したとき" do
       before do
-        @plugin_dir = File.join(File.dirname(__FILE__), "../examples/plugins")
-        @manager = TestApp.new(@plugin_dir)
+        @manager = TestApp.new
       end
 
       it "プラグインのインスタンスを生成できるべき" do
@@ -54,8 +31,7 @@ describe "PluginManager" do
 
     describe "存在しないプラグイン名を指定したとき" do
       before do
-        @plugin_dir = File.join(File.dirname(__FILE__), "../examples/plugins")
-        @manager = TestApp.new(@plugin_dir)
+        @manager = TestApp.new
       end
 
       it "NameError が発生するべき" do
@@ -67,28 +43,13 @@ describe "PluginManager" do
     
     describe "存在するプラグイン名を指定したとき" do
       before do
-        @plugin_dir = File.join(File.dirname(__FILE__), "../examples/plugins")
-        @manager = TestApp.new(@plugin_dir)
-        @manager.load_plugins
+        @manager = TestApp.new
+        require "fragile/plugin/console_output"
       end
 
       it "プラグインのインスタンスを生成できるべき" do
-        obj = @manager.create_plugin("foo", {})
-        assert_equal Fragile::Plugin::Foo, obj.class
-      end
-    end
-    
-    describe "プラグインディレクトリが存在しないとき" do
-      before do
-        @plugin_dir = File.join(File.dirname(__FILE__), "not_exist")
-        @manager = TestApp.new(@plugin_dir)
-      end
-
-      it "何もしないべき" do
-        @manager.load_plugins
-        assert_raises NameError do
-          Fragile::Plugin.const_get("Foo")
-        end
+        obj = @manager.create_plugin(:console_output, {})
+        assert_equal Fragile::Plugin::ConsoleOutput, obj.class
       end
     end
   end

@@ -2,14 +2,13 @@
 
 module Fragile
   module Plugin
-    class ProcFilter
+    class ConsoleOutput
       def initialize(config)
-        @proc = config[:proc]
       end
 
       def call(data)
-        data.select do |v|
-          @proc.call(v)
+        data.each do |v|
+          puts v
         end
       end
     end

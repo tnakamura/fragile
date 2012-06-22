@@ -9,7 +9,9 @@ module Fragile
       def initialize(config)
         @port = config[:port] || 25
         @helo_domain = config[:helo_domain] || "localhost"
+        @auth_type = config[:auth_type] || :plain
         @smtp = config[:smtp]
+        @ssl = config[:ssl] || true
         @account = config[:account]
         @password = config[:password]
         @from = config[:from]
@@ -36,13 +38,10 @@ Message-Id: #{SecureRandom.uuid}@localhost
       end
 
       def send_mail(message)
-        Net::SMTP.start(
-          @smtp,
-          @port,
-          @helo_domain,
-          @account,
-          @password) do |smtp|
-          smtp.send_message message, @from, @to
+        @smtp = Net::SMTP.new(@smtp, @port)
+        @smtp.enable_starttls if @ssl
+        @smtp.start(@helo_domain, @account, @password, @auth_type) do |smtp|
+          smtp.send_message(message, @from, @to)
         end
       end
     end

@@ -28,11 +28,17 @@ $ fragile -f recipe/example.rb
 
 ##What is Recipe?
 
+The "Recipe" is ruby script.
+
 ```ruby
+require "fragile/plugin/rss_input"
+require "fragile/plugin/select_filter"
+require "fragile/plugin/console_output"
+
 pipeline "foobar" do
-  use "feed_input", :url => "http://d.hatena.ne.jp/griefworker/rss"
-  use "unduplicate_filter"
-  use "mail_output", :to => "foobar@example.com"
+  use "rss_input", :url => "http://d.hatena.ne.jp/griefworker/rss"
+  use "select_filter", :proc => lambda{|x| x[:title].include?("[Ruby]")}
+  use "console_output"
 end
 ```
 

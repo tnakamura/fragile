@@ -17,13 +17,13 @@ gem install fragile
 Specify any recipe which -f option.
 
 ```html
-fragile -f <recipe>
+fragile -f <recipe> <target>
 ```
 
 Example.
 
 ```html
-$ fragile -f recipe/example.rb
+$ fragile -f recipe/example.rb console_sample
 ```
 
 ##What is Recipe?
@@ -35,7 +35,7 @@ require "fragile/plugin/rss_input"
 require "fragile/plugin/select_filter"
 require "fragile/plugin/console_output"
 
-pipeline "foobar" do
+pipeline "console_sample" do
   use "rss_input", :url => "http://d.hatena.ne.jp/griefworker/rss"
   use "select_filter", :proc => lambda{|x| x[:title].include?("[Ruby]")}
   use "console_output"

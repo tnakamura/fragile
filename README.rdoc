@@ -1,6 +1,6 @@
 = fragile
 
-*Ruby Pipeline Framework*
+Ruby Pipeline Framework
 
 == Description
 

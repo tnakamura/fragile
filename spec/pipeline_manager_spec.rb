@@ -1,5 +1,5 @@
 # coding: utf-8
-require_relative "test_helper"
+require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 class TestApp
   include Fragile::PipelineManager
@@ -15,7 +15,7 @@ class TestPlugin
   end
 end
 
-describe "PipelineManager" do
+describe Fragile::PipelineManager do
   describe "#define_pipeline" do
     before do
       @manager = TestApp.new
@@ -23,7 +23,7 @@ describe "PipelineManager" do
 
     it "パイプラインを登録できるべき" do
       @manager.define_pipeline :foo do;end
-      assert_equal true, @manager.pipelines.has_key?("foo")
+      @manager.pipelines.has_key?("foo").should be_true
     end
   end
 
@@ -34,7 +34,7 @@ describe "PipelineManager" do
       end
 
       it "false を返すべき" do
-        assert_equal false, @manager.pipeline_exist?("foo")
+        @manager.pipeline_exist?("foo").should be_false
       end
     end
 
@@ -45,7 +45,7 @@ describe "PipelineManager" do
       end
 
       it "true を返すべき" do
-        assert_equal true, @manager.pipeline_exist?("bar")
+        @manager.pipeline_exist?("bar").should be_true
       end
     end
   end
@@ -57,7 +57,7 @@ describe "PipelineManager" do
       end
 
       it "空であるべき" do
-        assert_equal true, @manager.pipelines.empty?
+        @manager.pipelines.should be_empty
       end
     end
   end
@@ -69,9 +69,7 @@ describe "PipelineManager" do
       end
 
       it "PipelineError が発生するべき" do
-        assert_raises Fragile::PipelineError do
-          @manager.run_pipeline("hoge")
-        end
+        lambda{ @manager.run_pipeline("hoge") }.should raise_error(Fragile::PipelineError)
       end
     end
 
@@ -86,7 +84,7 @@ describe "PipelineManager" do
 
       it "パイプラインを実行できるべき" do
         @manager.run_pipeline("hoge")
-        assert_equal true, @config[:called]
+        @config[:called].should be_true
       end
     end
   end

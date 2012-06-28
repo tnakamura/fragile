@@ -1,14 +1,14 @@
 # coding: utf-8
-require_relative "test_helper"
+require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe "Pipeline" do
+describe Fragile::Pipeline do
   describe "#name" do
     before do
       @pipeline = Fragile::Pipeline.new("test")
     end
 
     it "設定した値を取得できるべき" do
-      assert_equal "test", @pipeline.name
+      @pipeline.name.should == "test"
     end
   end
 
@@ -22,7 +22,8 @@ describe "Pipeline" do
 
       actual = nil
       @pipeline.instance_eval { actual = @retry_count }
-      assert_equal 5, actual
+
+      actual.should == 5
     end
   end
 
@@ -47,7 +48,8 @@ describe "Pipeline" do
 
       actual_count = nil
       @pipeline.instance_eval { actual_count = @plugins.count }
-      assert_equal 1, actual_count
+
+      actual_count.should == 1
     end
   end
 
@@ -77,7 +79,7 @@ describe "Pipeline" do
 
       @pipeline.run
 
-      assert_equal true, @data[:called]
+      @data[:called].should be_true
     end
 
     it "@retry_count 回リトライできるべき" do
@@ -88,7 +90,7 @@ describe "Pipeline" do
 
       @pipeline.run
 
-      assert_equal true, @data[:called]
+      @data[:called].should be_true
     end
 
     it "@retry_count 回以上失敗すると PipelineError が発生するべき" do
@@ -97,9 +99,7 @@ describe "Pipeline" do
       @pipeline.use TestPlugin, @data
       @pipeline.retry_count 2
 
-      assert_raises Fragile::PipelineError do
-        @pipeline.run
-      end
+      lambda{ @pipeline.run }.should raise_error(Fragile::PipelineError)
     end
   end
 end

@@ -1,29 +1,30 @@
-= fragile
+# fragile
 
 Ruby Pipeline Framework
 
-== Description
+## Description
 
 This is a pipeline framework which can extend the functionality by plug-ins.
 
-== Get Started
+## Get Started
 
 Installation.
 
-  $ gem install fragile
+    $ gem install fragile
 
 Specify any recipe which -f option.
 
-  $ fragile -f <recipe> <target>
+    $ fragile -f <recipe> <target>
 
 Example.
 
-  $ fragile -f recipe/example.rb console_sample
+    $ fragile -f recipe/example.rb console_sample
 
-== What is Recipe?
+## What is Recipe?
 
 The "Recipe" is ruby script.
 
+```ruby
   require "fragile/plugin/rss_input"
   require "fragile/plugin/select_filter"
   require "fragile/plugin/console_output"
@@ -33,18 +34,20 @@ The "Recipe" is ruby script.
     use "select_filter", :proc => lambda{|x| x[:title].include?("[Ruby]")}
     use "console_output"
   end
+```
 
-== Environment
+## Environment
 
 After ruby 1.8.
 
-== Author
+## Author
 
-*tnakamura*
+**tnakamura**
 
-* http://d.hatena.ne.jp/griefworker
-* https://github.com/tnakamura
+* [Blog](http://tnakamura.hatenablog.com/)
+* [GitHub](https://github.com/tnakamura)
 
-== License
+## License
 
 Licensed under the MIT LICENSE
+

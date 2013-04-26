@@ -23,7 +23,7 @@ describe Fragile::PipelineManager do
 
     it "パイプラインを登録できるべき" do
       @manager.define_pipeline :foo do;end
-      @manager.pipelines.has_key?("foo").should be_true
+      expect(@manager.pipelines.has_key?("foo")).to be_true
     end
   end
 
@@ -34,7 +34,7 @@ describe Fragile::PipelineManager do
       end
 
       it "false を返すべき" do
-        @manager.pipeline_exist?("foo").should be_false
+        expect(@manager.pipeline_exist?("foo")).to be_false
       end
     end
 
@@ -45,7 +45,7 @@ describe Fragile::PipelineManager do
       end
 
       it "true を返すべき" do
-        @manager.pipeline_exist?("bar").should be_true
+        expect(@manager.pipeline_exist?("bar")).to be_true
       end
     end
   end
@@ -57,7 +57,7 @@ describe Fragile::PipelineManager do
       end
 
       it "空であるべき" do
-        @manager.pipelines.should be_empty
+        expect(@manager.pipelines).to be_empty
       end
     end
   end
@@ -69,7 +69,9 @@ describe Fragile::PipelineManager do
       end
 
       it "PipelineError が発生するべき" do
-        lambda{ @manager.run_pipeline("hoge") }.should raise_error(Fragile::PipelineError)
+        expect {
+          @manager.run_pipeline("hoge")
+        }.to raise_error(Fragile::PipelineError)
       end
     end
 
@@ -84,7 +86,7 @@ describe Fragile::PipelineManager do
 
       it "パイプラインを実行できるべき" do
         @manager.run_pipeline("hoge")
-        @config[:called].should be_true
+        expect(@config[:called]).to be_true
       end
     end
   end

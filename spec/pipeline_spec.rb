@@ -8,7 +8,7 @@ describe Fragile::Pipeline do
     end
 
     it "設定した値を取得できるべき" do
-      @pipeline.name.should == "test"
+      expect(@pipeline.name).to eq("test")
     end
   end
 
@@ -23,7 +23,7 @@ describe Fragile::Pipeline do
       actual = nil
       @pipeline.instance_eval { actual = @retry_count }
 
-      actual.should == 5
+      expect(actual).to eq(5)
     end
   end
 
@@ -49,7 +49,7 @@ describe Fragile::Pipeline do
       actual_count = nil
       @pipeline.instance_eval { actual_count = @plugins.count }
 
-      actual_count.should == 1
+      expect(actual_count).to eq(1)
     end
   end
 
@@ -79,7 +79,7 @@ describe Fragile::Pipeline do
 
       @pipeline.run
 
-      @data[:called].should be_true
+      expect(@data[:called]).to be_true
     end
 
     it "@retry_count 回リトライできるべき" do
@@ -90,7 +90,7 @@ describe Fragile::Pipeline do
 
       @pipeline.run
 
-      @data[:called].should be_true
+      expect(@data[:called]).to be_true
     end
 
     it "@retry_count 回以上失敗すると PipelineError が発生するべき" do
@@ -99,7 +99,9 @@ describe Fragile::Pipeline do
       @pipeline.use TestPlugin, @data
       @pipeline.retry_count 2
 
-      lambda{ @pipeline.run }.should raise_error(Fragile::PipelineError)
+      expect{
+        @pipeline.run
+      }.to raise_error(Fragile::PipelineError)
     end
   end
 end

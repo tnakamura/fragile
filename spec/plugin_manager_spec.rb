@@ -19,22 +19,30 @@ end
 
 describe Fragile::PluginManager do
   describe "#create_plugin" do
-    context "when specified a class" do
-      before { @manager = TestApp.new }
-      subject { @manager.create_plugin(Fragile::Plugin::TestPlugin, {}) }
-      its(:class) { should == Fragile::Plugin::TestPlugin }
+    before do
+      @manager = TestApp.new
     end
 
-    context "when specified a class name not existed" do
-      before { @manager = TestApp.new }
-      subject { lambda { @manager.create_plugin("foo_bar_hoge_fuga", {}) } } 
-      it { should raise_error(NameError) }
+    context "プラグインクラスを指定したとき" do
+      it "プラグインクラスのインスタンスを生成できる" do
+        @plugin = @manager.create_plugin(Fragile::Plugin::TestPlugin, {})
+        expect(@plugin).to be_an_instance_of(Fragile::Plugin::TestPlugin)
+      end
+    end
+
+    context "存在しないプラグインクラスの名前を指定したとき" do
+      it "NameError が発生する" do
+        expect {
+          @manager.create_plugin("foo_bar_hoge_fuga", {})
+        }.to raise_error(NameError)
+      end
     end
     
-    describe "when specified a class name existed" do
-      before { @manager = TestApp.new }
-      subject { @manager.create_plugin(:console_output, {}) } 
-      its(:class) { should == Fragile::Plugin::ConsoleOutput }
+    describe "存在するプラグインクラスの名前を指定したとき" do
+      it "プラグインクラスのインスタンスを生成できる" do
+        @plugin = @manager.create_plugin(:console_output, {})
+        expect(@plugin).to be_an_instance_of(Fragile::Plugin::ConsoleOutput)
+      end
     end
   end
 end

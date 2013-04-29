@@ -1,4 +1,4 @@
-# Fragile [![Build Status](https://secure.travis-ci.org/tnakamura/fragile.png)](http://travis-ci.org/tnakamura/fragile) [![Code Climate](https://codeclimate.com/github/tnakamura/fragile.png)](https://codeclimate.com/github/tnakamura/fragile) [![Dependency Status](https://gemnasium.com/tnakamura/fragile.png)](https://gemnasium.com/tnakamura/fragile)
+# Fragile [![Build Status](https://secure.travis-ci.org/tnakamura/fragile.png)](http://travis-ci.org/tnakamura/fragile) [![Code Climate](https://codeclimate.com/github/tnakamura/fragile.png)](https://codeclimate.com/github/tnakamura/fragile) [![Dependency Status](https://gemnasium.com/tnakamura/fragile.png)](https://gemnasium.com/tnakamura/fragile) [![Coverage Status](https://coveralls.io/repos/tnakamura/fragile/badge.png?branch=master)](https://coveralls.io/r/tnakamura/fragile)
 
 Ruby Pipeline Framework
 

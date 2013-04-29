@@ -50,4 +50,5 @@ pkg
 
 vendor/bundle
 Gemfile.lock
+coverage/
 

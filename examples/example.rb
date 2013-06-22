@@ -37,7 +37,7 @@ pipeline :im_kayac_sample do
 
   use :rss_input, :url => "http://d.hatena.ne.jp/griefworker/rss"
   use :select_filter, :proc => lambda{|x| x[:title].include?("[Ruby]")}
-  use :map_filter, :proc => lambda{|x| x[:title] = x[:title].encode("UTF-8")}
+  use :map_filter, :proc => lambda{|x| x[:title] = x[:title].encode("UTF-8"); x}
   use :im_kayac_output, {
     :secret_key => "your-secret-key",
     :handler  => "http://d.hatena.ne.jp/griefworker",

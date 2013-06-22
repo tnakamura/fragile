@@ -45,8 +45,19 @@ describe Fragile::Plugin::ImKayacOutput do
 
   context '#callが引数ありで実行されたとき' do
     it '#send_im_kayac が実行されるべき' do
-      output.should_receive(:send_im_kayac)
-      output.call(['a'])
+      output.should_receive(:send_im_kayac).exactly(1).times
+      output.call(['a', 'b', 'c'])
+    end
+  end
+
+  context '#callが:link, :title を含むHash型の配列で実行されたとき' do
+    it '#send_im_kayac が配列サイズ数だけ実行されるべき' do
+      output.should_receive(:send_im_kayac).exactly(3).times
+      output.call([
+        {:link => 'http://example.com/a', :title => 'a'},
+        {:link => 'http://example.com/b', :title => 'b'},
+        {:link => 'http://example.com/c', :title => 'c'},
+      ])
     end
   end
 

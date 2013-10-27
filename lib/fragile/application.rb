@@ -13,13 +13,15 @@ require "fragile/plugin_manager"
 
 module Fragile
   class Application
+    DEFAULT_FILE_NAME = "Pipefile"
+
     include Fragile::PipelineManager
     include Fragile::PluginManager
 
     attr_reader :logger
 
     def initialize
-      @recipe_file = File.join(Dir.pwd, "Spcfile")
+      @recipe_file = File.join(Dir.pwd, DEFAULT_FILE_NAME)
       @logger = Logger.new(STDOUT)
       @logger.level = Logger::WARN
     end

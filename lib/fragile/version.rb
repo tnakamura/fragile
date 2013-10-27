@@ -7,5 +7,5 @@
 # License::   Licensed under the MIT LICENSE.
 
 module Fragile
-  VERSION = "0.0.5"
+  VERSION = "0.0.6"
 end

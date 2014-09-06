@@ -11,7 +11,7 @@ describe Fragile::DSL do
 
     it "パイプラインを登録できるべき" do
       pipeline "foo" do;end
-      expect(Fragile.application.pipelines.has_key?("foo")).to be_true
+      expect(Fragile.application.pipelines).to have_key("foo")
     end
   end
 end

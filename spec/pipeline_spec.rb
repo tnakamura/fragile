@@ -79,7 +79,7 @@ describe Fragile::Pipeline do
 
       @pipeline.run
 
-      expect(@data[:called]).to be_true
+      expect(@data[:called]).to be_truthy
     end
 
     it "@retry_count 回リトライできるべき" do
@@ -90,7 +90,7 @@ describe Fragile::Pipeline do
 
       @pipeline.run
 
-      expect(@data[:called]).to be_true
+      expect(@data[:called]).to be_truthy
     end
 
     it "@retry_count 回以上失敗すると PipelineError が発生するべき" do
